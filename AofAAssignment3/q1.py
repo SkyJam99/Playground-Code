@@ -1,5 +1,7 @@
 def countInversions(A, front, back):
     inversions = 0
+    mid = (front+back) // 2
+
     if (back - front) < 2: 
         if A[front] > A[back]: 
             return 1
@@ -11,8 +13,21 @@ def countInversions(A, front, back):
         if A[front+1] > A[back]: inversions += 1
         return inversions
     
-    inversions += countInversions(A, front, (back / 2) - 1)
-    inversions += countInversions(A, back / 2, back)
+    inversions += countInversions(A, front, mid)
+    inversions += countInversions(A, mid+1, back)
+    
+    i = front
+    j = mid+1
+
+
+    while i < mid+1 and j < back+1:
+        if A[i] > A[j]:
+            inversions += 1
+            i += 1
+        else:
+            j += 1
+
+    #
     
 
     
