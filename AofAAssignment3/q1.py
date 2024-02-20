@@ -1,4 +1,22 @@
-def countInversions(A, front, back):
+def countInversions(A):
+    inversions = 0
+    front = 0
+    mid = len(A) // 2
+    back = len(A) - 1
+    #Base case, one element in array
+    if len(A) == 1:
+        return inversions
+    
+    ALeft = A[0:mid - 1]
+    ARight = A[mid:len(A)-1]
+
+    inversions += countInversions(ALeft)
+    inversions += countInversions(ARight)
+
+    
+
+
+def countInversionsOld(A, front, back):
     inversions = 0
     mid = (front+back) // 2
 
