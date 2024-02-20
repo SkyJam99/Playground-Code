@@ -1,56 +1,63 @@
-def countInversions(A):
+
+
+def merge(A, left, mid, right):
+    if left >= right: return 0
+
     inversions = 0
-    front = 0
-    mid = len(A) // 2
-    back = len(A) - 1
-    #Base case, one element in array
-    if len(A) == 1:
-        return inversions
-    
-    ALeft = A[0:mid - 1]
-    ARight = A[mid:len(A)-1]
+    i = 0
+    j = 0
+    k = left
+    ALeft = A[left:mid]
+    ARight = A[mid+1:right]
+    print(ALeft)
+    lengthL = len(ALeft)
+    lengthR = len(ARight)
 
-    inversions += countInversions(ALeft)
-    inversions += countInversions(ARight)
-
-    
-
-
-def countInversionsOld(A, front, back):
-    inversions = 0
-    mid = (front+back) // 2
-
-    if (back - front) < 2: 
-        if A[front] > A[back]: 
-            return 1
-        else:
-            return 0
-    if (back - front) == 2:
-        if A[front] > A[front+1]: inversions += 1
-        if A[front] > A[back]: inversions += 1
-        if A[front+1] > A[back]: inversions += 1
-        return inversions
-    
-    inversions += countInversions(A, front, mid)
-    inversions += countInversions(A, mid+1, back)
-    
-    i = front
-    j = mid+1
-
-
-    while i < mid+1 and j < back+1:
-        if A[i] > A[j]:
-            inversions += 1
+    while i < lengthL and j < lengthR:
+        if ALeft[i] <= ARight[j]:
+            A[k] = ALeft[i]
             i += 1
         else:
+            A[k] = ARight[j]
             j += 1
+            inversions += (lengthL - i + 1)
 
-    #
-    
+        k += 1
 
-    
+    while i < lengthL:
+        A[k] = ALeft[i]
+        i += 1
+        k += 1
 
-A = [3, 2, 1]
+    while j < lengthR:
+        A[k] = ARight[j]
+        j += 1
+        k += 1
+
+    return inversions
+
+
+
+def countInversions(A, left, right):
+    totalInversions = 0
+    if left < right:
+        print("Going Deeper")
+        mid = (left + right) // 2
+        totalInversions += countInversions(A, left, mid)
+        totalInversions += countInversions(A, mid+1, right)
+        totalInversions += merge(A, left, mid, right)
+    else:
+        print("Array length 1")
+
+    return totalInversions
+
+
+
+
+
+
+
+A = [5, 4, 3, 2, 1]
 B = [1, 3, 2]
 C = [1, 2, 3]
 
