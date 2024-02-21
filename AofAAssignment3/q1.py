@@ -12,7 +12,7 @@ def merge(A, temp, left, mid, right):
         else:
             temp[k] = A[j]
             j += 1
-            #print(mid - i + 1)
+            #This is the key line and where all the inversions are being counted
             inversions += (mid - i + 1)
 
         k += 1
@@ -37,7 +37,6 @@ def merge(A, temp, left, mid, right):
 def countInversions(A, temp, left, right):
     totalInversions = 0
     if left < right:
-        #print("Going Deeper")
         mid = (left + right) // 2
         totalInversions += countInversions(A, temp, left, mid)
         totalInversions += countInversions(A, temp, mid+1, right)
@@ -63,7 +62,7 @@ print(countInv(B))
 print(countInv(C))
 
 test_cases = [
-    [1, 20, 6, 4, 5],  # Example from the explanation
+    [1, 20, 6, 4, 5],  # Basic Example
     [1, 3, 5, 2, 4, 6],  # Mixed inversions
     [5, 4, 3, 2, 1],  # Descending order, maximum inversions
     [1, 2, 3, 4, 5],  # Ascending order, no inversions

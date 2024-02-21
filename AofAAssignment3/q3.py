@@ -14,6 +14,5 @@ def majorityElement(A):
     return tempMajority
 
 
-if __name__ == "__main__":
-    B = [2, 2, 2, 2, 2, 3, 3, 3, 3]
-    print(majorityElement(B))
+B = [2, 2, 2, 2, 2, 3, 3, 3, 3]
+print(majorityElement(B))
